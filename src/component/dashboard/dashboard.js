@@ -16,27 +16,28 @@ class DashBoard extends Component {
         const navList = [
             {
                 path: '/article',
-                text: '牛人',
+                text: '上传文章',
                 icon: 'boss',
-                title: '牛人列表',
+                title: '上传文章',
                 component: Article,
             },
             {
                 path: '/album',
-                text: 'boss',
+                text: '上传相册',
                 icon: 'job',
-                title: 'BOSS列表',
+                title: '上传相册',
                 component: Album,
             },
             {
                 path: '/share',
-                text: '消息',
+                text: '管理分享',
                 icon: 'msg',
-                title: '消息列表',
+                title: '管理分享',
                 component: Share
             }
 
         ]
+        let {pathname} = this.props.location.pathname !=='/'?this.props.location : {pathname:'/article'}
         return (
           <Layout className={Layout}>
            <Header>
@@ -44,19 +45,20 @@ class DashBoard extends Component {
             <Menu
                 theme="dark"
                 mode="horizontal"
-                defaultSelectedKeys={['2']}
+                selectedKeys={[pathname]}
                 style={{ lineHeight: '64px' }}
             >
-                <Menu.Item key="1" onClick={()=>{this.props.history.push('/article')}}>nav 1</Menu.Item>
-                <Menu.Item key="2">nav 2</Menu.Item>
-                <Menu.Item key="3">nav 3</Menu.Item>
+                {
+                    navList.map(v=>(
+                        <Menu.Item key={v.path} onClick={()=>{this.props.history.push(v.path)}}>{v.text}</Menu.Item>
+                    ))
+                }
             </Menu>
             </Header>
             <Content style={{ padding: '0 50px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>List</Breadcrumb.Item>
-                <Breadcrumb.Item>App</Breadcrumb.Item>
+                <Breadcrumb.Item>{navList.filter(v=>v.path===pathname)[0].text}</Breadcrumb.Item>
             </Breadcrumb>
             <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
                 <Switch>

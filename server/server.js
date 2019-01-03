@@ -5,13 +5,13 @@ const cookieParser = require('cookie-parser')
 const app = express()
 
 const model = require('./model')
-const Chat = model.getModel('chat')
 
 const server = require('http').Server(app)
+const articleRouter = require('./article')
 
 app.use(cookieParser())
-
-app.unsubscribe(bodyParser.json())
+app.use(bodyParser.json())
+app.use(articleRouter)
 
 server.listen(8888,function(){
     console.log('博客后台启动成功')

@@ -10,23 +10,27 @@ mongoose.connection.on('connnected',function(){
 })
 
 const models = {
-    user: {
-        'user':{type:String,'require':true},
-        'pwd':{type:String,'require':true},
-        'type':{type:String,'require':true},
-        'avatar':{type:String},
-        'title':{type:String},
-        'company':{type:String},
-        'money':{type:String},
-        'desc':{type:String}
-    },
-    chat: {
-        'chatid':{type:String,require:true},
-        'from':{type:String,require:true},
-        'to':{type:String,require:true},
-        'read':{type:Boolean,default:false},
-        'content':{type:String,require:true,default:''},
-        'create_time':{type:Number,default: new Date().getTime()}
+    article: {
+        title: {
+            type: String,
+            require: true
+          },
+          date: {
+            type: Date
+          },
+          content: {
+            type: String,
+            require: true
+          },
+          favor: {
+            type: Number,
+            default: 0,
+            require: true
+          },
+          comments: [{
+            body: String,
+            date: Date
+          }]
     }
 }
 

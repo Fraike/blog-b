@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom'
 
 @withRouter
 
-class AuthRoute extends Component {
+class AuthRoute extends React.Component {
     componentDidMount(){
-        this.props.history.push('/home')
+        this.props.history.push('/article')
     }
     render(){return null}
 }
