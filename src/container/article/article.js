@@ -88,6 +88,14 @@ class ArticleForm extends Component {
                     </Form.Item>
                     <Form.Item
                     {...formItemLayout}
+                    label="描述"
+                    >
+                    {getFieldDecorator('sub')(
+                        <Input />
+                    )}
+                    </Form.Item>
+                    <Form.Item
+                    {...formItemLayout}
                     label="日期"
                     >
                     {getFieldDecorator('date')(

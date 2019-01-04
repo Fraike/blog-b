@@ -8,10 +8,12 @@ const model = require('./model')
 
 const server = require('http').Server(app)
 const articleRouter = require('./article')
+const albumRouter = require('./album')
 
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(articleRouter)
+app.use(albumRouter)
 
 server.listen(8888,function(){
     console.log('博客后台启动成功')

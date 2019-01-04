@@ -15,6 +15,10 @@ const models = {
             type: String,
             require: true
           },
+          sub: {
+            type: String,
+            require: true
+          },
           date: {
             type: Date
           },
@@ -31,6 +35,20 @@ const models = {
             body: String,
             date: Date
           }]
+    },
+    album: {
+        title: {
+            type: String,
+            require: true
+        },
+        sub: {
+            type: String,
+            require: true
+        },
+        list: {
+            type: Array,
+            require: true
+        }
     }
 }
 
