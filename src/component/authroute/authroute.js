@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 
 class AuthRoute extends React.Component {
     componentDidMount(){
-        this.props.history.push('/article')
+        this.props.history.push('/articleList')
     }
     render(){return null}
 }

@@ -6,6 +6,7 @@ import { Switch,Route,withRouter } from 'react-router-dom'
 import Article from '../../container/article/article';
 import Album from '../../container/album/album';
 import Share from '../../container/share/share';
+import ArticleList from '../../container/articleList/articleList';
 
 const { Header, Content, Footer } = Layout;
 
@@ -34,6 +35,13 @@ class DashBoard extends Component {
                 icon: 'msg',
                 title: '管理分享',
                 component: Share
+            },
+            {
+                path: '/articleList',
+                text: '管理文章',
+                icon: 'msg',
+                title: '管理文章',
+                component: ArticleList
             }
 
         ]

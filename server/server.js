@@ -15,6 +15,6 @@ app.use(bodyParser.json())
 app.use(articleRouter)
 app.use(albumRouter)
 
-server.listen(8888,function(){
+server.listen(5000,function(){
     console.log('博客后台启动成功')
 })
