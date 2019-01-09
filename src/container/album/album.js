@@ -33,7 +33,6 @@ class AlbumForm extends Component {
     });
     let i = 0;
     fileList.forEach((file) => {  
-        console.log(file) 
         let config = {
             useCdnDomain: true,
             region: qiniu.region.z0
@@ -75,7 +74,6 @@ class AlbumForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, formValues) => {
           if (!err) {
-             
               let tmpArray = []
               fileList.forEach((v,i)=>{
                   let tmp = {
