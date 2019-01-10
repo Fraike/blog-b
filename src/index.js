@@ -7,6 +7,9 @@ import { BrowserRouter, Route,Switch} from 'react-router-dom';
 import AuthRoute from  './component/authroute/authroute'
 import DashBoard from './component/dashboard/dashboard'
 
+const reduxDevtools = window.devToolsExtension ? window.devToolsExtension(): f=>f
+
+
 
 
 ReactDOM.render(

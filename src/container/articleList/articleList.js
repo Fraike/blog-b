@@ -1,62 +1,62 @@
 import React, { Component } from 'react';
 import { Table, Divider, Tag } from 'antd';
+import axios from 'axios'
 class ArticleList extends Component {
+    state = {list:[]}
+    constructor(props){
+      super(props)
+      // this.handleEdit = this.handleEdit.bind(this)
+    }
+    async componentDidMount(){
+      // axios.get('/getAllArticle').then(res=>{
+      //   if(res.status === 200 && res.data.code === 0){
+      //     this.setState({
+      //       ...res.data.list
+      //     })
+      //   }
+      // })
+      const {status,data:{list}} = await axios.get('/getAllArticle')
+      this.setState({
+        list: list
+      })
+    }
+    handleEdit(record){
+      console.log(record)
+    }
     render(){
         const columns = [{
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
+            title: '文章名字',
+            dataIndex: 'title',
+            key: 'title',
             render: text => <a href="javascript:;">{text}</a>,
           }, {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
+            title: '日期',
+            dataIndex: 'date',
+            key: 'date',
+            render: text => <span>{text.substr(0,10)}</span>,
           }, {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
+            title: '概括内容',
+            dataIndex: 'content',
+            key: 'content',
+            render: text => <span>{text.substr(0,10)}</span>,
           }, {
-            title: 'Tags',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: tags => (
-              <span>
-                {tags.map(tag => <Tag color="blue" key={tag}>{tag}</Tag>)}
-              </span>
-            ),
+            title: '点赞数',
+            key: 'favor',
+            dataIndex: 'favor'
           }, {
-            title: 'Action',
+            title: '操作',
             key: 'action',
             render: (text, record) => (
               <span>
-                <a href="javascript:;">Invite {record.name}</a>
+                <a href="javascript:;" onClick={()=>this.handleEdit(record)}>编辑 {record.name}</a>
                 <Divider type="vertical" />
-                <a href="javascript:;">Delete</a>
+                <a href="javascript:;">删除</a>
               </span>
             ),
           }];
-          
-          const data = [{
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-          }, {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-          }, {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-          }];
+
         return (
-            <Table columns={columns} dataSource={data} />
+            <Table rowKey="_id"  columns={columns} dataSource={this.state.list} />
         )
     }
 }
