@@ -6,6 +6,7 @@ import { BrowserRouter, Route,Switch} from 'react-router-dom';
 
 import AuthRoute from  './component/authroute/authroute'
 import DashBoard from './component/dashboard/dashboard'
+import Login from './container/login/login'
 
 const reduxDevtools = window.devToolsExtension ? window.devToolsExtension(): f=>f
 
@@ -17,7 +18,7 @@ ReactDOM.render(
             <div>
                 <AuthRoute></AuthRoute>
                 <Switch>
-                    <Route path='/home' component={Home}></Route>
+                    <Route path='/login' component={Login}></Route>
                     <Route component={DashBoard}></Route>
                 </Switch>
             </div>

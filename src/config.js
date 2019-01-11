@@ -9,7 +9,6 @@ import {
 // })
 
 axios.interceptors.response.use(function (config) {
-    console.log(config)
     message.success(config.data.msg);
     return config
 })
