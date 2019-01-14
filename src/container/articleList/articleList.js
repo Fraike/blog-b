@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
-import { Table, Divider, Tag } from 'antd';
+import { Table, Divider } from 'antd';
 import axios from 'axios'
 class ArticleList extends Component {
     state = {list:[]}
     constructor(props){
       super(props)
-      // this.handleEdit = this.handleEdit.bind(this)
     }
     async componentDidMount(){
-      // axios.get('/getAllArticle').then(res=>{
-      //   if(res.status === 200 && res.data.code === 0){
-      //     this.setState({
-      //       ...res.data.list
-      //     })
-      //   }
-      // })
       const {status,data:{list}} = await axios.get('/getAllArticle')
       this.setState({
         list: list

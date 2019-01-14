@@ -23,7 +23,7 @@ Router.get('/getToken',function(req,res){
     var secretKey = 'ZdVX2B9-sq1DzqUhH56XQrqhHerMC4OECRl8_V5q';
     var mac = new qiniu.auth.digest.Mac(accessKey, secretKey)
     var options = {
-        scope: 'blog',
+        scope: 'wwtfile',
       };
     var putPolicy = new qiniu.rs.PutPolicy(options);
     var uploadToken=putPolicy.uploadToken(mac);

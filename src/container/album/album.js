@@ -35,7 +35,7 @@ class AlbumForm extends Component {
     fileList.forEach((file) => {  
         let config = {
             useCdnDomain: true,
-            region: qiniu.region.z0
+            region: qiniu.region.z2
         }
         var putExtra = {
             fname: "",
@@ -43,6 +43,12 @@ class AlbumForm extends Component {
             mimeType: null
         };
         var observer = {
+            error(){
+                message.error('上传出错了');
+                self.setState({
+                    uploading: false
+                });
+            },
             complete(res){
                 i++;
                 if(i === fileList.length){

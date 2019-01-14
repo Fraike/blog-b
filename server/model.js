@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 
 const DB_URL = 'mongodb://127.0.0.1:27017/blog'
-mongoose.connect(DB_URL,{
+mongoose.connect(DB_URL, {
     useNewUrlParser: true
 })
-mongoose.connection.on('connnected',function(){
+mongoose.connection.on('connnected', function () {
     console.log('数据库链接成功');
-    
+
 })
 
 const models = {
@@ -14,27 +14,27 @@ const models = {
         title: {
             type: String,
             require: true
-          },
-          sub: {
+        },
+        sub: {
             type: String,
             require: true
-          },
-          date: {
+        },
+        date: {
             type: Date
-          },
-          content: {
+        },
+        content: {
             type: String,
             require: true
-          },
-          favor: {
+        },
+        favor: {
             type: Number,
             default: 0,
             require: true
-          },
-          comments: [{
+        },
+        comments: [{
             body: String,
             date: Date
-          }]
+        }]
     },
     album: {
         title: {
@@ -49,15 +49,35 @@ const models = {
             type: Array,
             require: true
         }
+    },
+    user: {
+        account: {
+            type: String,
+            require: true
+        }
+    },
+    share: {
+        title: {
+            type: String,
+            require: true
+        },
+        desc: {
+            type: String,
+            require: true
+        },
+        urlPath: {
+            type: String,
+            require: true
+        }
     }
 }
 
-for(let m in models){
+for (let m in models) {
     mongoose.model(m, new mongoose.Schema(models[m]))
 }
 
 module.exports = {
-    getModel: function(name){
+    getModel: function (name) {
         return mongoose.model(name)
     }
 }
