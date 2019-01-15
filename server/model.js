@@ -65,6 +65,10 @@ const models = {
             type: String,
             require: true
         },
+        type: {
+            type: String,
+            require: true
+        },
         urlPath: {
             type: String,
             require: true

@@ -7,13 +7,13 @@ const model = require('./model')
 const Share = model.getModel('share')
 
 Router.post('/addShare',function(req,res){
-    const {title,desc,urlPath} = req.body
+    const {title,desc,type,urlPath} = req.body
     let targetUrl = urlPath
     let urlString = url.parse(targetUrl)
     let iconUrl = `${urlString.protocol}//${urlString.host}/favicon.ico`
     isHasRootIcon(iconUrl).then(result=>{
         if(result === true) {
-            const shareModel = new Share({title,desc,urlPath:iconUrl})
+            const shareModel = new Share({title,desc,type,urlPath:iconUrl})
             shareModel.save(function(e,d){
                 if(e){
                     return res.json({code:1,msg:'后端出错'})
