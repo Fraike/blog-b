@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const DB_URL = 'mongodb://127.0.0.1:27017/blog'
+const DB_URL = 'mongodb://root:mima@47.107.126.193:27017/blog?authSource=test'
 mongoose.connect(DB_URL, {
     useNewUrlParser: true
 })
