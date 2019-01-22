@@ -8,7 +8,9 @@ import {
     Button,
     DatePicker,
     Row,
-    Col
+    Col,
+    Upload,
+    Icon
 } from 'antd';
 
 import axios from 'axios'
@@ -92,6 +94,37 @@ class ArticleForm extends Component {
                     >
                     {getFieldDecorator('sub')(
                         <Input />
+                    )}
+                    </Form.Item>
+                    {/* <Form.Item
+                        {...formItemLayout}
+                        label="封面"
+                    >
+                     <Upload {...props} 
+                        listType="picture-card"
+                        fileList={fileList}
+                        onPreview={this.handlePreview}
+                        onChange={this.handleChange}
+                    >
+                    <Button>
+                    <Icon type="plus" />
+                    </Button>
+                    </Upload>
+                    </Form.Item> */}
+                    <Form.Item
+                    {...formItemLayout}
+                    label="Upload"
+                    extra="longgggggggggggggggggggggggggggggggggg"
+                    >
+                    {getFieldDecorator('upload', {
+                        valuePropName: 'fileList',
+                        getValueFromEvent: this.normFile,
+                    })(
+                        <Upload name="logo" action="/upload.do" listType="picture">
+                        <Button>
+                            <Icon type="upload" /> Click to upload
+                        </Button>
+                        </Upload>
                     )}
                     </Form.Item>
                     <Form.Item

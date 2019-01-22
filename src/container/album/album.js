@@ -157,25 +157,25 @@ class AlbumForm extends Component {
                 <Form.Item>
                 <Row>
                 <Col offset={4}>
-                <Upload {...props} 
-                    listType="picture-card"
-                    fileList={fileList}
-                    onPreview={this.handlePreview}
-                    onChange={this.handleChange}
-                >
-                <Button>
-                <Icon type="plus" />
-                </Button>
-                </Upload>
-                <Button
-                type="primary"
-                onClick={this.handleUpload}
-                disabled={fileList.length === 0}
-                loading={uploading}
-                style={{ marginTop: 16 }}
-                >
-                {uploading ? 'Uploading' : 'Start Upload' }
-                </Button>
+                    <Upload {...props} 
+                        listType="picture-card"
+                        fileList={fileList}
+                        onPreview={this.handlePreview}
+                        onChange={this.handleChange}
+                    >
+                    <Button>
+                    <Icon type="plus" />
+                    </Button>
+                    </Upload>
+                    <Button
+                    type="primary"
+                    onClick={this.handleUpload}
+                    disabled={fileList.length === 0}
+                    loading={uploading}
+                    style={{ marginTop: 16 }}
+                    >
+                    {uploading ? 'Uploading' : 'Start Upload' }
+                    </Button>
                 </Col>
                 </Row>
                 </Form.Item>

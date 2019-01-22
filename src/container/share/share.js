@@ -42,7 +42,7 @@ class Share extends Component {
                    form.resetFields();
                    self.setState({ visible: false });
                }else{
-                message.success(res.data.msg)
+                message.error(res.data.msg)
                }
             })
           
