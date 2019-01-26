@@ -10,22 +10,37 @@ import {
     Row,
     Col,
     Upload,
-    Icon
+    Icon,
+    message
 } from 'antd';
 
 import axios from 'axios'
-
+import { getCookie } from '../../util'
 import ReactMarkdown from 'react-markdown'
+import { connect } from 'react-redux'
+import * as qiniu from 'qiniu-js'
+
+@connect(
+    state=>state.user
+
+)
 
 class ArticleForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            content: ''
+            content: '',
+            fileList: [],
+            uploading: false,
         }
         this.handelContentChange = this.handelContentChange.bind(this)
     }
+    componentDidMount(){
+        // console.log(this.props)
+        console.log(getCookie('token'))
+    }
 
+   
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, formValues) => {
@@ -35,9 +50,9 @@ class ArticleForm extends Component {
                 'date': formValues['date'].format('YYYY-MM-DD')
             }
             console.log('Received values of form: ', values);
-            axios.post('/uploadArticle',{...values}).then(res=>{
-                console.log(res)
-            })
+            // axios.post('/uploadArticle',{...values}).then(res=>{
+            //     console.log(res)
+            // })
           }
         });
       }
@@ -48,9 +63,88 @@ class ArticleForm extends Component {
             content: e.target.value
         })
     }
+
+    handlePreview = (file) => {
+        this.setState({
+          previewImage: file.url || file.thumbUrl,
+          previewVisible: true,
+        });
+      }
+    
+    handleChange = ({ fileList }) => this.setState({ fileList })
+
+        
+    handleUpload = () => {
+        let self = this
+        const { fileList } = self.state;
+        self.setState({
+            uploading: true,
+        });
+        let i = 0;
+        fileList.forEach((file) => {  
+            let config = {
+                useCdnDomain: true,
+                region: qiniu.region.z2
+            }
+            var putExtra = {
+                fname: "",
+                params: {},
+                mimeType: null
+            };
+            var observer = {
+                error(){
+                    message.error('上传出错了');
+                    self.setState({
+                        uploading: false
+                    });
+                },
+                complete(res){
+                    i++;
+                    if(i === fileList.length){
+                        console.log('上传结束')
+                        self.setState({
+                            uploading: false,
+                            fileList: []
+                        });
+                    }
+                    message.success('上传成功');
+                }
+            }
+            var observable = qiniu.upload(file.originFileObj, file.name, getCookie('token'), putExtra, config)
+            var subscription = observable.subscribe(observer) 
+            });
+          }
+
+          normFile = (e) => {
+            console.log('Upload event:', e);
+            if (Array.isArray(e)) {
+              return e;
+            }
+            return e && e.fileList;
+          }
     
     render() {
         const { getFieldDecorator } = this.props.form;
+        const { uploading, fileList } = this.state;
+        const props = {
+            onRemove: (file) => {
+              this.setState((state) => {
+                const index = state.fileList.indexOf(file);
+                const newFileList = state.fileList.slice();
+                newFileList.splice(index, 1);
+                return {
+                  fileList: newFileList,
+                };
+              });
+            },
+            beforeUpload: (file) => {
+              this.setState(state => ({
+                fileList: [...state.fileList, file],
+              }));
+              return false;
+            },
+            fileList,
+        };
         const { TextArea } = Input;
         const formItemLayout = {
             labelCol: {
@@ -96,25 +190,39 @@ class ArticleForm extends Component {
                         <Input />
                     )}
                     </Form.Item>
-                    {/* <Form.Item
+                    <Form.Item
                         {...formItemLayout}
                         label="封面"
                     >
-                     <Upload {...props} 
-                        listType="picture-card"
-                        fileList={fileList}
-                        onPreview={this.handlePreview}
-                        onChange={this.handleChange}
-                    >
-                    <Button>
-                    <Icon type="plus" />
+                    {
+                        getFieldDecorator('upload',{
+                            // valuePropName: 'fileList',
+                            getValueFromEvent: this.normFile,
+                        })(
+                            <Upload {...props} 
+                            listType="picture-card"
+                            fileList={fileList}
+                            onPreview={this.handlePreview}
+                            onChange={this.handleChange}
+                            >
+                        
+                            {fileList.length >= 1 ? null :   <Button><Icon type="plus" /></Button>}
+                            </Upload>
+                        )
+                    }
+                    <Button
+                        type="primary"
+                        onClick={this.handleUpload}
+                        disabled={fileList.length === 0}
+                        loading={uploading}
+                        style={{ marginTop: 16 }}
+                        >
+                        {uploading ? 'Uploading' : 'Start Upload' }
                     </Button>
-                    </Upload>
-                    </Form.Item> */}
-                    <Form.Item
+                    </Form.Item>
+                    {/* <Form.Item
                     {...formItemLayout}
                     label="Upload"
-                    extra="longgggggggggggggggggggggggggggggggggg"
                     >
                     {getFieldDecorator('upload', {
                         valuePropName: 'fileList',
@@ -126,7 +234,7 @@ class ArticleForm extends Component {
                         </Button>
                         </Upload>
                     )}
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item
                     {...formItemLayout}
                     label="日期"

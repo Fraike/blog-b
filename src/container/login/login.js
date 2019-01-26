@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import './login.scss'
 import { message } from 'antd';
+import { getToken } from '../../redux/user.redux'
+import { connect } from 'react-redux'
+
+
+@connect(
+    state=>state.user,
+    {getToken}
+)
 
 
 class Login extends Component {
@@ -18,7 +26,6 @@ class Login extends Component {
         
     }
     handelLogin(){
-     console.log(this.state)
      axios.post('/login',this.state).then(res=>{
          if(res.status === 200 && res.data.code ===0) {
             this.props.history.push('./articleList')
@@ -26,6 +33,7 @@ class Login extends Component {
              message.error('错误')
          }
      })
+     this.props.getToken()
     }
     handleSetAccount(e){
         this.setState({
