@@ -11,7 +11,8 @@ import {
     Col,
     Upload,
     Icon,
-    message
+    message,
+    Select
 } from 'antd';
 
 import axios from 'axios'
@@ -47,12 +48,18 @@ class ArticleForm extends Component {
           if (!err) {
             const values = {
                 ...formValues,
-                'date': formValues['date'].format('YYYY-MM-DD')
+                'date': formValues['date'].format('YYYY-MM-DD'),
+                'imgUrl': formValues['imgUrl'][0].name
             }
             console.log('Received values of form: ', values);
-            // axios.post('/uploadArticle',{...values}).then(res=>{
-            //     console.log(res)
-            // })
+            axios.post('/uploadArticle',{...values}).then(res=>{
+                if(res.status === 200 && res.data.code === 0){
+                    message.success(res.data.msg)
+                }else{
+                    message.error('error')
+                }
+                
+            })
           }
         });
       }
@@ -169,7 +176,7 @@ class ArticleForm extends Component {
             },
           };
 
-        
+        const Option = Select.Option
         return ( 
             <Row>
                 <Col span={12}>
@@ -178,7 +185,11 @@ class ArticleForm extends Component {
                     {...formItemLayout}
                     label="标题"
                     >
-                    {getFieldDecorator('title')(
+                    {getFieldDecorator('title',{
+                    rules: [
+                        { required: true, message: '输入标题', type: 'string' },
+                        ]
+                    })(
                         <Input />
                     )}
                     </Form.Item>
@@ -186,8 +197,28 @@ class ArticleForm extends Component {
                     {...formItemLayout}
                     label="描述"
                     >
-                    {getFieldDecorator('sub')(
+                    {getFieldDecorator('sub',{
+                         rules: [
+                            { required: true, message: '输入描述', type: 'string' },
+                            ],
+                    })(
                         <Input />
+                    )}
+                    </Form.Item>
+                    <Form.Item
+                    {...formItemLayout}
+                    label="标签"
+                    >
+                    {getFieldDecorator('type', {
+                        rules: [
+                        { required: true, message: '选择一个标签', type: 'array' },
+                        ]
+                    })(
+                        <Select mode="multiple" placeholder="选择一个标签">
+                        <Option value="JavaScript">JavaScript</Option>
+                        <Option value="css">css</Option>
+                        <Option value="html">html</Option>
+                        </Select>
                     )}
                     </Form.Item>
                     <Form.Item
@@ -195,7 +226,7 @@ class ArticleForm extends Component {
                         label="封面"
                     >
                     {
-                        getFieldDecorator('upload',{
+                        getFieldDecorator('imgUrl',{
                             // valuePropName: 'fileList',
                             getValueFromEvent: this.normFile,
                         })(

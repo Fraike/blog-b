@@ -36,7 +36,15 @@ const models = {
         comments: [{
             body: String,
             date: Date
-        }]
+        }],
+        type: {
+            type: Array,
+            require: true
+        },
+        imgUrl: {
+            type: String,
+            require: true
+        }
     },
     album: {
         title: {

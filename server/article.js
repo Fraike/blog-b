@@ -6,9 +6,9 @@ const Article = model.getModel('article')
 const qiniu = require('qiniu')
 
 Router.post('/uploadArticle',function(req,res){
-    const {title,date,content} = req.body
-    console.log(req.body)
-    const articleModel = new Article({title,date,content})
+    const {title,date,content,type,imgUrl} = req.body
+    // console.log(req.body)
+    const articleModel = new Article({title,date,content,type,imgUrl})
     articleModel.save(function(e,d){
         if(e){
             return res.json({code:1,msg:'后端出错'})

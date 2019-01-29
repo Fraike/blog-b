@@ -16,13 +16,7 @@ class AlbumForm extends Component {
 
       }
     componentDidMount(){
-        axios.get('/getToken').then(res=>{
-            if(res.status === 200 && res.data.code === 0) {
-                this.setState({
-                    token: res.data.token
-                })
-            }
-        })
+       
     }
     
     handleUpload = () => {
