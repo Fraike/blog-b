@@ -2,6 +2,7 @@ const express = require('express')
 const Router = express.Router()
 const model = require('./model')
 const Article = model.getModel('article')
+const mShare = model.getModel('mshare')
 
 const qiniu = require('qiniu')
 
@@ -43,5 +44,16 @@ Router.get('/getAllArticle',function(req,res){
     })
    
 })
+
+Router.get('/getAllMShare',function(req,res){
+    mShare.find({},function(err,doc){
+        if (err) {
+            return res.json({code:1,msg:'获取小程序首页数据成功'})
+        }
+        return res.json({code:0,list:doc,msg:'获取小程序首页数据失败'})
+    })
+   
+})
+
 
 module.exports = Router

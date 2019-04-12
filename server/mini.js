@@ -17,14 +17,14 @@ Router.post('/uploadMShare',function(req,res){
    
 })
 
-Router.get('/getAllMShare',function(req,res){
-    mShare.find({},function(err,doc){
-        if (err) {
-            return res.json({code:1,msg:'获取小程序首页数据成功'})
-        }
-        return res.json({code:0,list:doc,msg:'获取小程序首页数据失败'})
-    })
+// Router.get('/getAllMShare',function(req,res){
+//     mShare.find({},function(err,doc){
+//         if (err) {
+//             return res.json({code:1,msg:'获取小程序首页数据成功'})
+//         }
+//         return res.json({code:0,list:doc,msg:'获取小程序首页数据失败'})
+//     })
    
-})
+// })
 
 module.exports = Router
