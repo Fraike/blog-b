@@ -83,6 +83,30 @@ const models = {
             type: String,
             require: true
         }
+    },
+    mshare: {
+        title: {
+            type: String,
+            require: true
+        },
+        content: {
+            type: String,
+            require: true
+        },
+        date: {
+            type: String
+        },
+        imagesUrl: {
+            type: Array,
+            require: true
+        },
+        time: {
+            type: String
+        },
+        location: {
+            type: String
+        }
+
     }
 }
 
