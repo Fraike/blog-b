@@ -35,25 +35,16 @@ Router.get('/getToken',function(req,res){
     }
 })
 
-// Router.get('/getAllArticle',function(req,res){
-//     Article.find({},function(err,doc){
-//         if (err) {
-//             return res.json({code:1,msg:'获取文章列表失败'})
-//         }
-//         return res.json({code:0,list:doc,msg:'获取文章列表成功'})
-//     })
-   
-// })
-
-Router.get('/getAllMShare',function(req,res){
-    mShare.find({},function(err,doc){
+Router.get('/getAllArticle',function(req,res){
+    Article.find({},function(err,doc){
         if (err) {
-            return res.json({code:1,msg:'获取小程序首页数据成功'})
+            return res.json({code:1,msg:'获取文章列表失败'})
         }
-        return res.json({code:0,list:doc,msg:'获取小程序首页数据失败'})
+        return res.json({code:0,list:doc,msg:'获取文章列表成功'})
     })
    
 })
+
 
 
 module.exports = Router
