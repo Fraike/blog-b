@@ -89,6 +89,9 @@ const models = {
             type: String,
             require: true
         },
+        avatarUrl:{
+            type: String
+        },
         content: {
             type: String,
             require: true
