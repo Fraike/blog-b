@@ -86,8 +86,7 @@ const models = {
     },
     mshare: {
         title: {
-            type: String,
-            require: true
+            type: String
         },
         avatarUrl:{
             type: String
