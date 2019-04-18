@@ -29,6 +29,8 @@ Router.get('/getAllMShare',function(req,res){
 
 Router.post('/getAlbumList',async function(req,res){
     const {albumName} = req.body
+    console.log(req.body)
+
     var accessKey = 'VXe87vEB8q4ProaK5hQSlGEoJKsWWKYc2UwlMJ4Y';
     var secretKey = 'ZdVX2B9-sq1DzqUhH56XQrqhHerMC4OECRl8_V5q';
     var mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
@@ -57,7 +59,6 @@ Router.post('/getAlbumList',async function(req,res){
           
           let imgArray = []
           items.forEach(function(item) {
-            console.log(item.key);
             imgArray.push("http://cdn.mitty.work/"+item.key)
             // console.log(item.putTime);
             // console.log(item.hash);
