@@ -27,6 +27,16 @@ Router.get('/getAllMShare',function(req,res){
    
 })
 
+Router.get('/deleteAllShare',function(req,res){
+  mShare.remove({},function(err,doc){
+      if (err) {
+          return res.json({code:1,msg:'删除小程序首页数据失败'})
+      }
+      return res.json({code:0,list:doc,msg:'删除小程序首页数据成功'})
+  })
+ 
+})
+
 Router.post('/getAlbumList',async function(req,res){
     const albumName = req.body
   
